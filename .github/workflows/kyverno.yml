@@ -16,6 +16,6 @@ jobs:
           tar -xf kyverno-cli_${{ env.VERSION }}_linux_x86_64.tar.gz
           ./kyverno version          
       - name: Test new resources against existing policies
-        run: ./kyverno apply policies/ -r ./charts/values.yaml
+        run: ./kyverno apply policies/ -r ./charts/
       - name: Test pre-defined cases
         run: ./kyverno test tests/
