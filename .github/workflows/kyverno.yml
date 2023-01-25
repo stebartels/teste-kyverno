@@ -18,6 +18,6 @@ jobs:
       - name: Extraindo manifestos     
         run:  helm template ./charts/helm-soma/ > manifesto.yaml
       - name: Test new resources against existing policies
-        run: ./kyverno apply policies/ --resource=./charts/manifestos.yaml
+        run: ./kyverno apply policies/ --resource=./manifestos.yaml
       - name: Test pre-defined cases
         run: ./kyverno test tests/
