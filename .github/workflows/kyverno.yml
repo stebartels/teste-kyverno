@@ -19,7 +19,7 @@ jobs:
         run: |  
           helm template ./charts/helm-soma/ > manifesto.yaml
           mkdir resources
-          mvdr manifesto.yaml > ./resouces
+          mv manifesto.yaml > ./resouces
       - name: Test new resources against existing policies
         run: ./kyverno apply policies/ -r resouces/
       - name: Test pre-defined cases
