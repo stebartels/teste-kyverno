@@ -16,7 +16,7 @@ jobs:
           tar -xf kyverno-cli_${{ env.VERSION }}_linux_x86_64.tar.gz
           ./kyverno version 
       - name: Extraindo manifestos     
-        run:  helm template ./helm-soma/ > manifesto.yaml
+        run:  helm template ./charts/helm-soma/ > manifesto.yaml
       - name: Test new resources against existing policies
         run: ./kyverno apply policies/ --resource=./charts/manifestos.yaml
       - name: Test pre-defined cases
