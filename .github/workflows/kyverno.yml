@@ -1,14 +1,21 @@
-on: [push]
-
+name: kyverno-policy-test
+on:
+  - pull_request
+  - workflow_dispatch
+env:
+  VERSION: v1.7.2
 jobs:
-  kyverno-job:
+  test:
     runs-on: ubuntu-latest
-    name: Run kyverno
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Validate policy
-        uses: gbaeke/kyverno-cli@v1
-        with:
-          command: |
-            kyverno apply ./policies --resource=./chart/values.yaml
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Download Kyverno CLI
+        run: |
+          curl -sLO https://github.com/kyverno/kyverno/releases/download/${{ env.VERSION }}/kyverno-cli_${{ env.VERSION }}_linux_x86_64.tar.gz
+          tar -xf kyverno-cli_${{ env.VERSION }}_linux_x86_64.tar.gz
+          ./kyverno version          
+      - name: Test new resources against existing policies
+        run: ./kyverno apply policies/ -r ./charts/values.yaml
+      - name: Test pre-defined cases
+        run: ./kyverno test tests/
