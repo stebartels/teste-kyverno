@@ -21,6 +21,6 @@ jobs:
           mkdir resources
           mv manifesto.yaml ./resouces
       - name: Test new resources against existing policies
-        run: ./kyverno apply policies/ -r resouces/
+        run: ./kyverno apply policies/ -r resources/
       - name: Test pre-defined cases
         run: ./kyverno test tests/
